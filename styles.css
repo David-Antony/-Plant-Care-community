@@ -1,0 +1,55 @@
+/*=============== BASE STYLES ===============*/
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+/*=============== HEADER ===============*/
+.header {
+    background-color: #fff;
+    padding: 20px 0;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav__logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Add additional styles for navigation, sections, buttons, etc. */
+
+/*=============== FOOTER ===============*/
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 0;
+}
+
+.footer__content {
+    margin-bottom: 20px;
+}
+
+.footer__title {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+/* Add additional footer styles here */
+
+/*=============== BUTTONS ===============*/
+.button {
+    background-color: #28a745;
+    color: #fff;
+   
