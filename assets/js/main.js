@@ -140,3 +140,54 @@ sr.reveal(`.home__social`, {delay: 600})
 sr.reveal(`.about__img, .contact__box`,{origin: 'left'})
 sr.reveal(`.about__data, .contact__form`,{origin: 'right'})
 sr.reveal(`.steps__card, .product__card, .questions__group, .footer`,{interval: 100})
+/*=============== AJAX CONTACT FORM ===============*/
+const contactForm = document.getElementById('contact-form'),
+      contactSuccess = document.getElementById('contact-success'),
+      sendAnotherBtn = document.getElementById('send-another');
+
+if(contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new URLSearchParams(new FormData(contactForm));
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.innerHTML = 'Sending... <i class="ri-loader-4-line ri-spin"></i>';
+        submitBtn.disabled = true;
+
+        try {
+            const response = await fetch('/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData
+            });
+
+            if(response.ok) {
+                contactForm.style.opacity = 0;
+                setTimeout(() => {
+                    contactForm.style.display = 'none';
+                    contactSuccess.style.display = 'block';
+                    setTimeout(() => { contactSuccess.style.opacity = 1; }, 50);
+                    contactForm.reset();
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                }, 400);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+if(sendAnotherBtn) {
+    sendAnotherBtn.addEventListener('click', () => {
+        contactSuccess.style.opacity = 0;
+        setTimeout(() => {
+            contactSuccess.style.display = 'none';
+            contactForm.style.display = 'grid';
+            setTimeout(() => { contactForm.style.opacity = 1; }, 50);
+        }, 400);
+    });
+}

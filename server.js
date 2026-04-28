@@ -36,8 +36,8 @@ app.post('/submit', async (req, res) => {
         const result = await collection.insertOne({ email, subject, message });
         console.log('Form data inserted:', result);
 
-        // Send a success response to the user
-        res.send('Form submitted successfully!');
+        // Send a success response to the user via JSON
+        res.json({ success: true, message: 'Form submitted successfully!' });
     } catch (err) {
         console.error('Error inserting form data:', err);
         res.status(500).send('Error submitting form');

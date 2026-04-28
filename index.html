@@ -399,7 +399,7 @@
                         </div>
                     </div>
 
-                    <form action="/submit" method="POST" class="contact__form">
+                    <form action="/submit" method="POST" class="contact__form" id="contact-form" style="transition: opacity 0.4s;">
                         <div class="contact__inputs">
                             <div class="contact__content">
                                 <input type="email" name="email" placeholder=" " class="contact__input" required>
@@ -422,6 +422,18 @@
                             <i class="ri-arrow-right-up-line button__icon"></i>
                         </button>
                     </form>
+
+                    <div class="contact__success" id="contact-success" style="display: none; opacity: 0; transition: opacity 0.4s; grid-column: 2 / 3;">
+                        <div class="contact__success-content" style="text-align: center; padding: 3rem 2rem; background: var(--container-color); border-radius: 1rem; box-shadow: 0 4px 12px hsla(var(--hue), 24%, 15%, .15);">
+                            <i class="ri-checkbox-circle-line" style="font-size: 4rem; color: var(--first-color); margin-bottom: 1rem; display: block;"></i>
+                            <h3 class="contact__subtitle" style="margin-bottom: .5rem;">Thank you!</h3>
+                            <p class="contact__description" style="margin-bottom: 2rem;">Your message has been sent successfully.</p>
+                            <button type="button" class="button button--flex" id="send-another" style="margin: 0 auto;">
+                                Send Another Message
+                                <i class="ri-arrow-right-up-line button__icon"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
