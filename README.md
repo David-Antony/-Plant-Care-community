@@ -5,7 +5,7 @@ A beautiful, responsive website for plant care enthusiasts. Developed with HTML,
 ## 👤 Author Information
 - **Name**: David Antony A
 - **Email**: davidantony@karunya.edu.in
-- **License**: ISC
+- **License**: MIT
 
 ---
 
@@ -28,7 +28,7 @@ Follow these steps to get the project running on your local machine:
     ```bash
     npm start
     ```
-    The server will start at `http://localhost:3000`.
+    (This runs `node server.js` internally)
 
 4.  **Verification**:
     - Open your browser and go to `http://localhost:3000`.

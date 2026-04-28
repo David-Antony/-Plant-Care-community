@@ -2,9 +2,10 @@
   "version": 2,
   "builds": [
     {
-      "src": "sample.js",
+      "src": "server.js",
       "use": "@vercel/node"
     },
+
     {
       "src": "index.html",
       "use": "@vercel/static"
@@ -17,11 +18,11 @@
   "routes": [
     {
       "src": "/submit",
-      "dest": "sample.js"
+      "dest": "server.js"
     },
     {
       "src": "/db-check",
-      "dest": "sample.js"
+      "dest": "server.js"
     },
     {
       "src": "/(.*)",
