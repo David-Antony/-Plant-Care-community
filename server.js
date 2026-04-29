@@ -16,34 +16,67 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
 // MongoDB connection configuration
-const url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+const url = process.env.MONGODB_URI;
 const dbName = process.env.DB_NAME || 'plant_care_db';
+let db;
+
+// Connection options for maximum reliability
+const client = new MongoClient(url, {
+    maxPoolSize: 10,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+});
+
+async function connectDB(retries = 5) {
+    while (retries) {
+        try {
+            await client.connect();
+            db = client.db(dbName);
+            console.log('------------------------------------');
+            console.log('[🚀 SUCCESS] Database Connected Successfully');
+            console.log('[🚀 STATUS] Ready for submissions');
+            console.log('------------------------------------');
+            break;
+        } catch (err) {
+            retries -= 1;
+            console.error(`[⚠️ WARNING] Connection failed. Retries left: ${retries}`);
+            console.error(`[ℹ️ REASON] ${err.message}`);
+            if (retries === 0) {
+                console.log('------------------------------------');
+                console.log('[❌ CRITICAL ERROR] Could not connect to MongoDB Atlas.');
+                console.log('[💡 TIP] Check your IP Whitelist and Port 27017 access.');
+                console.log('------------------------------------');
+            }
+            // Wait 5 seconds before retrying
+            await new Promise(res => setTimeout(res, 5000));
+        }
+    }
+}
+connectDB();
 
 // Handle form submission
 app.post('/submit', async (req, res) => {
     const { email, subject, message } = req.body;
-    const client = new MongoClient(url);
     
-    try {
-        await client.connect();
-        const db = client.db(dbName);
-        const collectionName = process.env.COLLECTION_NAME || 'submissions';
-        const collection = db.collection(collectionName);
+    if (!db) {
+        return res.status(503).json({ 
+            success: false, 
+            message: 'Database is currently offline. Please check your network or Atlas IP Whitelist and try again in a moment.' 
+        });
+    }
 
+    try {
+        const collection = db.collection(process.env.COLLECTION_NAME || 'submissions');
         const result = await collection.insertOne({ 
             email, 
             subject, 
             message,
             timestamp: new Date()
         });
-        console.log(`[SUCCESS] New message from ${email}. ID: ${result.insertedId}`);
-
         res.json({ success: true, message: 'Message sent successfully!' });
     } catch (err) {
-        console.error('[ERROR] Database insertion failed:', err);
-        res.status(500).json({ success: false, message: 'Internal Server Error' });
-    } finally {
-        await client.close();
+        console.error('[❌ ERROR] Submission failed:', err.message);
+        res.status(500).json({ success: false, message: 'Could not save message. Please try again later.' });
     }
 });
 

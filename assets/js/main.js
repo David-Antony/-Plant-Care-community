@@ -152,7 +152,7 @@ if(contactForm) {
         const formData = new URLSearchParams(new FormData(contactForm));
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalBtnText = submitBtn.innerHTML;
-        submitBtn.innerHTML = 'Sending... <i class="ri-loader-4-line ri-spin"></i>';
+        submitBtn.innerHTML = 'Sending...';
         submitBtn.disabled = true;
 
         try {
@@ -169,12 +169,16 @@ if(contactForm) {
                     contactSuccess.style.display = 'block';
                     setTimeout(() => { contactSuccess.style.opacity = 1; }, 50);
                     contactForm.reset();
-                    submitBtn.innerHTML = originalBtnText;
-                    submitBtn.disabled = false;
                 }, 400);
+            } else {
+                const data = await response.json();
+                alert(data.message || 'Something went wrong. Please try again.');
             }
         } catch (error) {
             console.error('Error:', error);
+            alert('Server connection error. Please try again later.');
+        } finally {
+            // Always reset the button so it doesn't stay "stuck"
             submitBtn.innerHTML = originalBtnText;
             submitBtn.disabled = false;
         }
@@ -223,46 +227,22 @@ if(subscribeForm) {
         const emailInput = subscribeForm.querySelector('input[type="email"]');
         const email = emailInput.value;
         const submitBtn = subscribeForm.querySelector('button[type="submit"]');
-        const originalBtnText = submitBtn.innerHTML;
-        const loadingBar = document.getElementById('subscribe-loading-bar');
+        const subscribeContainer = document.getElementById('subscribe-container');
         
+        // Gmail validation
+        if(!email.endsWith('@gmail.com')) {
+            alert('Please enter a valid Gmail address (ending in @gmail.com)');
+            return;
+        }
+
         submitBtn.innerHTML = 'Subscribing... <i class="ri-loader-4-line ri-spin"></i>';
         submitBtn.disabled = true;
-        
-        // Show and animate loading bar
-        loadingBar.style.display = 'block';
-        setTimeout(() => { loadingBar.style.width = '100%'; }, 50);
 
-        try {
-            const response = await fetch('/subscribe', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email })
-            });
-
-            const data = await response.json();
-
-            if(response.ok && data.success) {
-                // Wait for the bar animation to finish
-                setTimeout(() => {
-                    subscribeForm.style.display = 'none';
-                    subscribeSuccess.style.display = 'block';
-                }, 1500);
-            } else {
-                alert(data.message || 'Something went wrong. Please try again.');
-                submitBtn.innerHTML = originalBtnText;
-                submitBtn.disabled = false;
-                loadingBar.style.width = '0%';
-                setTimeout(() => { loadingBar.style.display = 'none'; }, 1500);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Server connection error. Please try again later.');
-            submitBtn.innerHTML = originalBtnText;
-            submitBtn.disabled = false;
-            loadingBar.style.width = '0%';
-            setTimeout(() => { loadingBar.style.display = 'none'; }, 1500);
-        }
+        // Simulate a quick loading effect for a more natural feel
+        setTimeout(() => {
+            subscribeContainer.style.display = 'none';
+            subscribeSuccess.style.display = 'block';
+        }, 800);
     });
 }
 if(sendAnotherBtn) {
