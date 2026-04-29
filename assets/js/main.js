@@ -181,6 +181,90 @@ if(contactForm) {
     });
 }
 
+/*=============== PRODUCT MODAL ===============*/
+const modal = document.getElementById('product-modal'),
+      modalTitle = document.getElementById('modal-title'),
+      modalDesc = document.getElementById('modal-description'),
+      modalWater = document.getElementById('modal-water'),
+      modalOrigin = document.getElementById('modal-origin'),
+      modalBenefit = document.getElementById('modal-benefit'),
+      modalBgImg = document.getElementById('modal-bg-img'),
+      modalClose = document.getElementById('modal-close'),
+      infoBtns = document.querySelectorAll('.info__button');
+
+if(infoBtns) {
+    infoBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            modalTitle.textContent = btn.dataset.name;
+            modalDesc.textContent = btn.dataset.desc;
+            modalWater.textContent = btn.dataset.water;
+            modalOrigin.textContent = btn.dataset.origin;
+            modalBenefit.textContent = btn.dataset.benefit;
+            modalBgImg.src = btn.dataset.img;
+            modal.classList.add('active-modal');
+        });
+    });
+}
+
+if(modalClose) {
+    modalClose.addEventListener('click', () => {
+        modal.classList.remove('active-modal');
+    });
+}
+
+/*=============== SUBSCRIBE FORM ===============*/
+const subscribeForm = document.getElementById('subscribe-form'),
+      subscribeSuccess = document.getElementById('subscribe-success');
+
+if(subscribeForm) {
+    subscribeForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const emailInput = subscribeForm.querySelector('input[type="email"]');
+        const email = emailInput.value;
+        const submitBtn = subscribeForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        const loadingBar = document.getElementById('subscribe-loading-bar');
+        
+        submitBtn.innerHTML = 'Subscribing... <i class="ri-loader-4-line ri-spin"></i>';
+        submitBtn.disabled = true;
+        
+        // Show and animate loading bar
+        loadingBar.style.display = 'block';
+        setTimeout(() => { loadingBar.style.width = '100%'; }, 50);
+
+        try {
+            const response = await fetch('/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+
+            const data = await response.json();
+
+            if(response.ok && data.success) {
+                // Wait for the bar animation to finish
+                setTimeout(() => {
+                    subscribeForm.style.display = 'none';
+                    subscribeSuccess.style.display = 'block';
+                }, 1500);
+            } else {
+                alert(data.message || 'Something went wrong. Please try again.');
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+                loadingBar.style.width = '0%';
+                setTimeout(() => { loadingBar.style.display = 'none'; }, 1500);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Server connection error. Please try again later.');
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+            loadingBar.style.width = '0%';
+            setTimeout(() => { loadingBar.style.display = 'none'; }, 1500);
+        }
+    });
+}
 if(sendAnotherBtn) {
     sendAnotherBtn.addEventListener('click', () => {
         contactSuccess.style.opacity = 0;

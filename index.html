@@ -13,7 +13,9 @@
         <!--=============== CSS ===============-->
         <link rel="stylesheet" href="assets/css/styles.css">
 
-        <title>Responsive plants website - Bedimcode</title>
+        <meta name="description" content="Premium plant care and delivery service. We provide the best plants for your home and office with expert care guides.">
+        <meta name="keywords" content="plants, plant care, indoor plants, cactus, succulent, gardening">
+        <title>PlantCare - Your Premium Indoor Plant Partner</title>
     </head>
     <body>
         <!--==================== HEADER ====================-->
@@ -129,7 +131,7 @@
                             </p>
                         </div>
 
-                        <a href="#" class="button--link button--flex">
+                        <a href="#products" class="button--link button--flex">
                             Shop Now <i class="ri-arrow-right-down-line button__icon"></i>
                         </a>
                     </div>
@@ -185,83 +187,86 @@
                 <div class="product__container grid">
                     <article class="product__card">
                         <div class="product__circle"></div>
-
                         <img src="assets/img/product1.png" alt="" class="product__img">
-
                         <h3 class="product__title">Cacti Plant</h3>
                         <span class="product__price">$19.99</span>
-
-                        <button class="button--flex product__button">
-                            <i class="ri-shopping-bag-line"></i>
+                        <button class="button--flex product__button info__button" data-name="Cacti Plant" data-desc="Requires very little water. Thrives in bright, direct sunlight. Perfect for beginners." data-water="50ml every 2 weeks" data-img="assets/img/product1.png" data-origin="Americas" data-benefit="Improves air quality and reduces stress.">
+                            <i class="ri-information-line"></i>
                         </button>
                     </article>
 
                     <article class="product__card">
                         <div class="product__circle"></div>
-
                         <img src="assets/img/product2.png" alt="" class="product__img">
-
                         <h3 class="product__title">Cactus Plant</h3>
                         <span class="product__price">$11.99</span>
-
-                        <button class="button--flex product__button">
-                            <i class="ri-shopping-bag-line"></i>
+                        <button class="button--flex product__button info__button" data-name="Cactus Plant" data-desc="A hardy desert plant that stores water. Needs plenty of sunlight." data-water="40ml every 2 weeks" data-img="assets/img/product2.png" data-origin="Arid Deserts" data-benefit="Stores water, very low maintenance.">
+                            <i class="ri-information-line"></i>
                         </button>
                     </article>
 
                     <article class="product__card">
                         <div class="product__circle"></div>
-
                         <img src="assets/img/product3.png" alt="" class="product__img">
-
                         <h3 class="product__title">Aloe Vera Plant</h3>
                         <span class="product__price">$7.99</span>
-
-                        <button class="button--flex product__button">
-                            <i class="ri-shopping-bag-line"></i>
+                        <button class="button--flex product__button info__button" data-name="Aloe Vera Plant" data-desc="Medicinal succulent known for soothing gel. Enjoys bright, indirect light." data-water="100ml every 3 weeks" data-img="assets/img/product3.png" data-origin="Arabian Peninsula" data-benefit="Healing properties for skin and burns.">
+                            <i class="ri-information-line"></i>
                         </button>
                     </article>
 
                     <article class="product__card">
                         <div class="product__circle"></div>
-
                         <img src="assets/img/product4.png" alt="" class="product__img">
-
                         <h3 class="product__title">Succulent Plant</h3>
                         <span class="product__price">$5.99</span>
-
-                        <button class="button--flex product__button">
-                            <i class="ri-shopping-bag-line"></i>
+                        <button class="button--flex product__button info__button" data-name="Succulent Plant" data-desc="Fleshy leaves that retain water. Great for small indoor spaces." data-water="30ml every 2 weeks" data-img="assets/img/product4.png" data-origin="Mexico" data-benefit="Symbols of endurance and good luck.">
+                            <i class="ri-information-line"></i>
                         </button>
                     </article>
 
                     <article class="product__card">
                         <div class="product__circle"></div>
-
                         <img src="assets/img/product5.png" alt="" class="product__img">
-
                         <h3 class="product__title">Succulent Plant</h3>
                         <span class="product__price">$10.99</span>
-
-                        <button class="button--flex product__button">
-                            <i class="ri-shopping-bag-line"></i>
+                        <button class="button--flex product__button info__button" data-name="Succulent Plant" data-desc="Beautiful rosette-shaped succulent. Prefers dry conditions." data-water="40ml every 2 weeks" data-img="assets/img/product5.png" data-origin="South Africa" data-benefit="Known for bringing prosperity (Money Tree).">
+                            <i class="ri-information-line"></i>
                         </button>
                     </article>
 
                     <article class="product__card">
                         <div class="product__circle"></div>
-
                         <img src="assets/img/product6.png" alt="" class="product__img">
-
                         <h3 class="product__title">Green Plant</h3>
                         <span class="product__price">$8.99</span>
-
-                        <button class="button--flex product__button">
-                            <i class="ri-shopping-bag-line"></i>
+                        <button class="button--flex product__button info__button" data-name="Green Plant" data-desc="Lush green foliage that purifies the air. Adaptable to various light conditions." data-water="150ml per week" data-img="assets/img/product6.png" data-origin="West Africa" data-benefit="Produces oxygen at night, purifies air.">
+                            <i class="ri-information-line"></i>
                         </button>
                     </article>
                 </div>
             </section>
+
+            <!--==================== PRODUCT MODAL ====================-->
+            <div class="modal" id="product-modal">
+                <div class="modal__content">
+                    <div class="modal__close" id="modal-close">
+                        <i class="ri-close-line"></i>
+                    </div>
+
+                    <img src="" alt="" id="modal-bg-img" class="modal__bg-img">
+
+                    <div class="modal__data">
+                        <h3 class="modal__title" id="modal-title">Plant Name</h3>
+                        <p class="modal__description" id="modal-description">Description goes here.</p>
+                        <div class="modal__details">
+                            <p class="modal__detail"><b>Origin:</b> <span id="modal-origin">...</span></p>
+                            <p class="modal__detail"><b>Benefit:</b> <span id="modal-benefit">...</span></p>
+                        </div>
+                        <p class="modal__water"><i class="ri-drop-line"></i> <span id="modal-water">Water capacity</span></p>
+                    </div>
+                </div>
+            </div>
 
             <!--==================== QUESTIONS ====================-->
             <section class="questions section" id="faqs">
@@ -281,8 +286,8 @@
 
                             <div class="questions__content">
                                 <p class="questions__description">
-                                    Plants are easy way to add color energy and transform your 
-                                    space but which planet is for you. Choosing the right plant.
+                                    The best plants for apartments are low-maintenance ones like 
+                                    Snake Plants, Pothos, or Succulents that thrive in indirect light.
                                 </p>
                             </div>
                         </div>
@@ -297,8 +302,8 @@
 
                             <div class="questions__content">
                                 <p class="questions__description">
-                                    Plants are easy way to add color energy and transform your 
-                                    space but which planet is for you. Choosing the right plant.
+                                    Yellow leaves often indicate overwatering. Ensure the top inch 
+                                    of soil is dry before watering again and check for proper drainage.
                                 </p>
                             </div>
                         </div>
@@ -313,8 +318,8 @@
 
                             <div class="questions__content">
                                 <p class="questions__description">
-                                    Plants are easy way to add color energy and transform your 
-                                    space but which planet is for you. Choosing the right plant.
+                                    Crispy edges usually mean the humidity is too low or the plant is 
+                                    getting too much direct sun. Try misting or moving it.
                                 </p>
                             </div>
                         </div>
@@ -331,8 +336,8 @@
 
                             <div class="questions__content">
                                 <p class="questions__description">
-                                    Plants are easy way to add color energy and transform your 
-                                    space but which planet is for you. Choosing the right plant.
+                                    Consider your light levels and how much time you can dedicate 
+                                    to care. Beginners should start with resilient succulents.
                                 </p>
                             </div>
                         </div>
@@ -347,8 +352,8 @@
 
                             <div class="questions__content">
                                 <p class="questions__description">
-                                    Plants are easy way to add color energy and transform your 
-                                    space but which planet is for you. Choosing the right plant.
+                                    Gently remove the plant, loosen the roots, and place it in a 
+                                    pot that is 1-2 inches wider with fresh potting soil.
                                 </p>
                             </div>
                         </div>
@@ -363,8 +368,8 @@
 
                             <div class="questions__content">
                                 <p class="questions__description">
-                                    Plants are easy way to add color energy and transform your 
-                                    space but which planet is for you. Choosing the right plant.
+                                    These are usually fungus gnats caused by damp soil. Let the 
+                                soil dry out more between waterings to break their life cycle.
                                 </p>
                             </div>
                         </div>
@@ -450,13 +455,18 @@
                         Subscribe to our newsletter <br> to stay update
                     </h3>
 
-                    <div class="footer__subscribe">
-                        <input type="email" placeholder="Enter your email" class="footer__input">
-
-                        <button class="button button--flex footer__button">
-                            Subscribe
-                            <i class="ri-arrow-right-up-line button__icon"></i>
-                        </button>
+                    <div class="footer__subscribe" id="subscribe-container">
+                        <form id="subscribe-form" style="display: flex; flex-direction: column; row-gap: .75rem; width: 100%;">
+                            <input type="email" name="email" placeholder="Enter your email" class="footer__input" required style="width: 100%;">
+                            <button type="submit" class="button button--flex footer__button" style="width: max-content;">
+                                Subscribe
+                                <i class="ri-arrow-right-up-line button__icon"></i>
+                            </button>
+                            <div id="subscribe-loading-bar" style="display: none; height: 3px; background-color: var(--first-color); width: 0%; transition: width 1.5s ease; border-radius: 2px;"></div>
+                        </form>
+                    </div>
+                    <div id="subscribe-success" style="display: none; color: var(--title-color); font-weight: var(--font-medium); margin-top: 1rem;">
+                        Thank you for joining our community! We will reach you through the mail.
                     </div>
                 </div>
 
